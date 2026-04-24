@@ -11,7 +11,10 @@ suitesRouter.get('/', (_req, res) => {
 
 suitesRouter.get('/:id', (req, res) => {
   const suite = suites.find(s => s.id === req.params.id)
-  if (!suite) return res.status(404).json({ error: 'Suite not found' })
+  if (!suite) {
+    res.status(404).json({ error: 'Suite not found' })
+    return
+  }
   res.json(suite)
 })
 
@@ -27,26 +30,33 @@ suitesRouter.get('/:id/run', (req, res) => {
   res.setHeader('Connection', 'keep-alive')
   res.flushHeaders()
 
+  // Resolve monorepo root: compiled output is at dist/ inside the package,
+  // so __dirname is apps/dashboard/backend/dist — 4 levels up is monorepo root
   const monoRoot = path.resolve(__dirname, '../../../..')
   const cwd = path.join(monoRoot, suite.cwd)
 
+  // Split command into program + args; avoid shell:true to prevent injection surface
   const [program, ...args] = suite.command.split(' ')
 
   const child = spawn(program, args, {
     cwd,
     env: { ...process.env, FORCE_COLOR: '0' },
-    shell: true,
   })
 
-  const send = (event: string, data: string) => {
+  const send = (event: string, data: unknown) => {
     res.write(`event: ${event}\ndata: ${JSON.stringify(data)}\n\n`)
   }
 
   child.stdout.on('data', (chunk: Buffer) => send('output', chunk.toString()))
   child.stderr.on('data', (chunk: Buffer) => send('output', chunk.toString()))
 
+  child.on('error', (err) => {
+    send('output', `[error] Failed to start process: ${err.message}`)
+    res.end()
+  })
+
   child.on('close', (code) => {
-    send('done', JSON.stringify({ exitCode: code }))
+    send('done', { exitCode: code })
     res.end()
   })
 
