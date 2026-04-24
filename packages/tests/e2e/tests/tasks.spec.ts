@@ -2,11 +2,15 @@ import { test, expect, request as apiRequest } from '@playwright/test'
 
 async function clearAllTasks() {
   const ctx = await apiRequest.newContext()
-  const tasks = await ctx.get('http://localhost:3001/tasks').then(r => r.json())
-  for (const task of tasks) {
-    await ctx.delete(`http://localhost:3001/tasks/${task.id}`)
+  try {
+    const res = await ctx.get('http://localhost:3001/tasks')
+    const tasks: Array<{ id: string }> = await res.json()
+    for (const task of tasks) {
+      await ctx.delete(`http://localhost:3001/tasks/${task.id}`)
+    }
+  } finally {
+    await ctx.dispose()
   }
-  await ctx.dispose()
 }
 
 test.beforeEach(async () => {
@@ -27,7 +31,7 @@ test('user can mark a task as complete', async ({ page }) => {
   await page.getByLabel('Task title').fill('Exercise')
   await page.getByRole('button', { name: 'Add' }).click()
   await page.getByLabel(/Mark "Exercise" as complete/i).check()
-  await expect(page.getByText('Exercise')).toHaveCSS('text-decoration', /line-through/)
+  await expect(page.getByText('Exercise')).toHaveCSS('text-decoration-line', 'line-through')
 })
 
 test('user can delete a task', async ({ page }) => {
