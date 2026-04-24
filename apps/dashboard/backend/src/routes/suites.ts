@@ -30,9 +30,10 @@ suitesRouter.get('/:id/run', (req, res) => {
   res.setHeader('Connection', 'keep-alive')
   res.flushHeaders()
 
-  // Resolve monorepo root: compiled output is at dist/ inside the package,
-  // so __dirname is apps/dashboard/backend/dist — 4 levels up is monorepo root
-  const monoRoot = path.resolve(__dirname, '../../../..')
+  // __dirname is apps/dashboard/backend/src/routes (dev via tsx)
+  //           or apps/dashboard/backend/dist/routes (compiled)
+  // Either way it's 5 levels deep — go up 5 to reach the monorepo root.
+  const monoRoot = path.resolve(__dirname, '../../../../..')
   const cwd = path.join(monoRoot, suite.cwd)
 
   // Use shell:true so the OS resolves `pnpm` via the shell's PATH, matching what
