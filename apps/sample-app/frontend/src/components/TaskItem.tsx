@@ -1,4 +1,4 @@
-import { Task } from '../types'
+import { Task, Priority } from '../types'
 
 interface Props {
   task: Task
@@ -6,7 +6,7 @@ interface Props {
   onDelete: (id: string) => void
 }
 
-const PRIORITY_COLORS: Record<string, string> = {
+const PRIORITY_COLORS: Record<Priority, string> = {
   high: '#ef4444',
   medium: '#f59e0b',
   low: '#22c55e',

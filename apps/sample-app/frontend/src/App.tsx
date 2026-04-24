@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { Task, Priority } from './types'
 import { getTasks, createTask, updateTask, deleteTask } from './api/tasks'
 import { TaskForm } from './components/TaskForm'
@@ -10,9 +10,11 @@ export function App() {
   const [status, setStatus] = useState('all')
   const [priority, setPriority] = useState('all')
 
-  const load = () => getTasks({ status, priority }).then(setTasks).catch(console.error)
+  const load = useCallback(() => {
+    getTasks({ status, priority }).then(setTasks).catch(console.error)
+  }, [status, priority])
 
-  useEffect(() => { load() }, [status, priority])
+  useEffect(() => { load() }, [load])
 
   const handleCreate = async (title: string, prio: Priority) => {
     await createTask(title, prio)
