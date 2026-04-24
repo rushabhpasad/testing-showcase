@@ -1,0 +1,15 @@
+{
+  "name": "tests-integration",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:failures": "SHOW_FAILURES=true vitest run"
+  },
+  "devDependencies": {
+    "@types/supertest": "^6.0.2",
+    "supertest": "^6.3.3",
+    "typescript": "^5.3.3",
+    "vitest": "^1.0.4"
+  }
+}
