@@ -28,6 +28,8 @@ async function seedTask(title: string, priority: string) {
 test('empty task list has no critical accessibility violations', async ({ page }) => {
   await clearAllTasks()
   await page.goto('/')
+  // Wait for the app to settle on the empty state before scanning
+  await page.waitForSelector('text=No tasks yet')
   const results = await new AxeBuilder({ page })
     .withTags(['wcag2a', 'wcag2aa'])
     .analyze()
@@ -48,6 +50,7 @@ test('task list with items has no critical accessibility violations', async ({ p
 
 test('task form inputs are properly labeled', async ({ page }) => {
   await page.goto('/')
+  await page.waitForSelector('form')
   const results = await new AxeBuilder({ page })
     .include('form')
     .withTags(['wcag2a', 'wcag2aa'])
@@ -57,6 +60,7 @@ test('task form inputs are properly labeled', async ({ page }) => {
 
 test('filter controls are accessible', async ({ page }) => {
   await page.goto('/')
+  await page.waitForSelector('[aria-label="Filters"]')
   const results = await new AxeBuilder({ page })
     .include('[aria-label="Filters"]')
     .withTags(['wcag2a', 'wcag2aa'])
