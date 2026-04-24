@@ -31,6 +31,10 @@ describe('Provider verification — task-manager-backend', () => {
       ],
       logLevel: 'warn',
       stateHandlers: {
+        'tasks exist': async () => {
+          reset()
+          seed({ id: 'abc-123', title: 'Buy milk', priority: 'medium', completed: false, createdAt: '2024-01-01T00:00:00.000Z' })
+        },
         'a task exists with id task-id-123': async () => {
           reset()
           seed({

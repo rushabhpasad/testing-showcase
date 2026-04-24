@@ -4,7 +4,88 @@
   },
   "interactions": [
     {
+      "description": "a request to update a task",
+      "providerStates": [
+        {
+          "name": "a task exists with id task-id-123"
+        }
+      ],
+      "request": {
+        "body": {
+          "completed": true
+        },
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "method": "PATCH",
+        "path": "/tasks/task-id-123"
+      },
+      "response": {
+        "body": {
+          "completed": true,
+          "createdAt": "2024-01-01T00:00:00.000Z",
+          "id": "task-id-123",
+          "priority": "medium",
+          "title": "Some task"
+        },
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "matchingRules": {
+          "body": {
+            "$.completed": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.createdAt": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.id": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.priority": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.title": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          },
+          "header": {}
+        },
+        "status": 200
+      }
+    },
+    {
       "description": "a request to create a task",
+      "providerStates": [
+        {
+          "name": "tasks exist"
+        }
+      ],
       "request": {
         "body": {
           "priority": "medium",
@@ -77,6 +158,11 @@
     },
     {
       "description": "a request to get all tasks",
+      "providerStates": [
+        {
+          "name": "tasks exist"
+        }
+      ],
       "request": {
         "method": "GET",
         "path": "/tasks"
@@ -138,82 +224,6 @@
               ]
             },
             "$[*].title": {
-              "combine": "AND",
-              "matchers": [
-                {
-                  "match": "type"
-                }
-              ]
-            }
-          },
-          "header": {}
-        },
-        "status": 200
-      }
-    },
-    {
-      "description": "a request to update a task",
-      "providerStates": [
-        {
-          "name": "a task exists with id task-id-123"
-        }
-      ],
-      "request": {
-        "body": {
-          "completed": true
-        },
-        "headers": {
-          "Content-Type": "application/json"
-        },
-        "method": "PATCH",
-        "path": "/tasks/task-id-123"
-      },
-      "response": {
-        "body": {
-          "completed": true,
-          "createdAt": "2024-01-01T00:00:00.000Z",
-          "id": "task-id-123",
-          "priority": "medium",
-          "title": "Some task"
-        },
-        "headers": {
-          "Content-Type": "application/json"
-        },
-        "matchingRules": {
-          "body": {
-            "$.completed": {
-              "combine": "AND",
-              "matchers": [
-                {
-                  "match": "type"
-                }
-              ]
-            },
-            "$.createdAt": {
-              "combine": "AND",
-              "matchers": [
-                {
-                  "match": "type"
-                }
-              ]
-            },
-            "$.id": {
-              "combine": "AND",
-              "matchers": [
-                {
-                  "match": "type"
-                }
-              ]
-            },
-            "$.priority": {
-              "combine": "AND",
-              "matchers": [
-                {
-                  "match": "type"
-                }
-              ]
-            },
-            "$.title": {
               "combine": "AND",
               "matchers": [
                 {

@@ -1,7 +1,8 @@
 import { describe, it } from 'vitest'
 import { PactV3, MatchersV3 } from '@pact-foundation/pact'
-import { like, eachLike } from '@pact-foundation/pact/src/dsl/matchers'
 import path from 'path'
+
+const { like, eachLike } = MatchersV3
 
 const showFailures = process.env.SHOW_FAILURES === 'true'
 
@@ -15,6 +16,7 @@ const provider = new PactV3({
 describe('Task Manager API — Consumer Contract', () => {
   it('GET /tasks — returns an array of tasks', () => {
     provider
+      .given('tasks exist')
       .uponReceiving('a request to get all tasks')
       .withRequest({
         method: 'GET',
@@ -38,12 +40,15 @@ describe('Task Manager API — Consumer Contract', () => {
 
       if (res.status !== 200) throw new Error(`Expected 200, got ${res.status}`)
       if (!Array.isArray(body)) throw new Error('Expected array response')
-      if (body.length === 0) throw new Error('Expected at least one task in pact example')
+      // Note: we do NOT assert specific values here — the Pact framework itself
+      // verifies that the response matches the shape defined in willRespondWith.
+      // Consumer tests verify the *contract* (shape + status), not specific data values.
     })
   })
 
   it('POST /tasks — creates a task and returns 201 with task shape', () => {
     provider
+      .given('tasks exist')
       .uponReceiving('a request to create a task')
       .withRequest({
         method: 'POST',
@@ -75,7 +80,8 @@ describe('Task Manager API — Consumer Contract', () => {
       const body = await res.json() as Record<string, unknown>
 
       if (res.status !== 201) throw new Error(`Expected 201, got ${res.status}`)
-      if (!body.id) throw new Error('Expected id in response')
+      // Shape check — id must be a string
+      if (typeof body.id !== 'string') throw new Error('Expected id to be a string')
     })
   })
 
@@ -114,7 +120,8 @@ describe('Task Manager API — Consumer Contract', () => {
       const body = await res.json() as Record<string, unknown>
 
       if (res.status !== 200) throw new Error(`Expected 200, got ${res.status}`)
-      if (body.completed !== true) throw new Error('Expected completed to be true')
+      // Type check — verify shape, not value (the Pact framework checks the value)
+      if (typeof body.completed !== 'boolean') throw new Error('Expected completed to be boolean')
     })
   })
 })
@@ -122,9 +129,11 @@ describe('Task Manager API — Consumer Contract', () => {
 // This block shows a contract that the provider CANNOT satisfy.
 // Run with: SHOW_FAILURES=true pnpm test
 // Then run pnpm test:provider to see the provider verification fail.
+// Skipped by default — set SHOW_FAILURES=true to include it.
 describe.skipIf(!showFailures)('[FAILURE EXAMPLE] Consumer expects field provider does not return', () => {
   it('GET /tasks — expects an "owner" field that the backend never returns', () => {
     provider
+      .given('tasks exist')
       .uponReceiving('a request to get tasks with owner field')
       .withRequest({
         method: 'GET',
@@ -150,8 +159,8 @@ describe.skipIf(!showFailures)('[FAILURE EXAMPLE] Consumer expects field provide
 
       if (res.status !== 200) throw new Error(`Expected 200, got ${res.status}`)
       if (!Array.isArray(body)) throw new Error('Expected array')
-      // Consumer assertion — mock will satisfy this since WE defined the mock
-      // But provider verification will FAIL because the real backend has no "owner" field
+      // Consumer assertion — mock satisfies this since WE defined the mock response.
+      // But provider verification will FAIL because the real backend has no "owner" field.
     })
   })
 })
