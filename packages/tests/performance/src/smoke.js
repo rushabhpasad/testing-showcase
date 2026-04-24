@@ -25,16 +25,21 @@ export default function () {
   )
   check(create, {
     'create task returns 201': (r) => r.status === 201,
-    'created task has id': (r) => JSON.parse(r.body).id !== undefined,
+    'created task has id': (r) => r.json('id') !== undefined,
   })
 
-  const taskId = JSON.parse(create.body).id
+  // Guard: if create failed, skip CRUD steps to avoid a confusing JSON.parse exception
+  if (create.status !== 201) {
+    sleep(1)
+    return
+  }
+  const taskId = create.json('id')
 
   // Get all tasks
   const list = http.get(`${BASE}/tasks`)
   check(list, {
     'list tasks returns 200': (r) => r.status === 200,
-    'list is an array': (r) => Array.isArray(JSON.parse(r.body)),
+    'list is an array': (r) => Array.isArray(r.json()),  // r.json() returns null on parse error, never throws
   })
 
   // Complete the task
