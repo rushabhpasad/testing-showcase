@@ -78,12 +78,13 @@ it('TaskList renders multiple tasks', () => {
 const showFailures = process.env.SHOW_FAILURES === 'true'
 
 describe.skipIf(!showFailures)('[FAILURE EXAMPLE] Snapshot mismatch', () => {
-  it('fails: snapshot has been intentionally altered', () => {
+  it('fails: inline snapshot no longer matches the rendered output', () => {
     const { container } = render(<TaskForm onSubmit={noop} />)
-    // Force a mismatch by manually building the expected snapshot string
-    // This simulates what happens when a component changes but snapshot isn't updated
-    expect(container.innerHTML).toMatchSnapshot()
-    // Then immediately invalidate by asserting the wrong thing
-    expect(container.querySelector('button')?.textContent).toBe('Submit') // Real button says "Add"
+    // This inline snapshot was written when the button said "Save".
+    // The component now renders "Add" — so this test fails with a snapshot diff,
+    // exactly as it would after a component change whose snapshot wasn't updated.
+    expect(container.querySelector('button')?.textContent).toMatchInlineSnapshot(
+      `"Save"`
+    )
   })
 })
