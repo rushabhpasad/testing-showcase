@@ -1,0 +1,6 @@
+packages:
+  - 'apps/sample-app/backend'
+  - 'apps/sample-app/frontend'
+  - 'apps/dashboard/backend'
+  - 'apps/dashboard/frontend'
+  - 'packages/tests/*'

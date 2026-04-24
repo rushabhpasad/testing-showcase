@@ -1,0 +1,12 @@
+{
+  "name": "testing-showcase",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "concurrently -n \"sb-api,sb-ui,dash-api,dash-ui\" -c \"blue,cyan,green,yellow\" \"pnpm --filter sample-app-backend dev\" \"pnpm --filter sample-app-frontend dev\" \"pnpm --filter dashboard-backend dev\" \"pnpm --filter dashboard-frontend dev\"",
+    "test:all": "pnpm --filter tests-unit run test && pnpm --filter tests-integration run test && pnpm --filter tests-snapshot run test && pnpm --filter tests-security run test"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
