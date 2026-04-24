@@ -1,0 +1,263 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`FilterBar renders with default filters 1`] = `
+<div>
+  <div
+    aria-label="Filters"
+    role="group"
+    style="display: flex; gap: 8px; margin-bottom: 12px;"
+  >
+    <select
+      aria-label="Filter by status"
+      style="padding: 4px 8px; border: 1px solid rgb(209, 213, 219); border-radius: 4px;"
+    >
+      <option
+        value="all"
+      >
+        All
+      </option>
+      <option
+        value="active"
+      >
+        Active
+      </option>
+      <option
+        value="completed"
+      >
+        Completed
+      </option>
+    </select>
+    <select
+      aria-label="Filter by priority"
+      style="padding: 4px 8px; border: 1px solid rgb(209, 213, 219); border-radius: 4px;"
+    >
+      <option
+        value="all"
+      >
+        All Priorities
+      </option>
+      <option
+        value="high"
+      >
+        High
+      </option>
+      <option
+        value="medium"
+      >
+        Medium
+      </option>
+      <option
+        value="low"
+      >
+        Low
+      </option>
+    </select>
+  </div>
+</div>
+`;
+
+exports[`TaskForm renders with default state 1`] = `
+<div>
+  <form
+    style="display: flex; gap: 8px; margin-bottom: 16px;"
+  >
+    <input
+      aria-label="Task title"
+      placeholder="New task..."
+      style="flex: 1 1 0%; padding: 6px 8px; border: 1px solid rgb(209, 213, 219); border-radius: 4px;"
+      value=""
+    />
+    <select
+      aria-label="Priority"
+      style="padding: 6px 8px; border: 1px solid rgb(209, 213, 219); border-radius: 4px;"
+    >
+      <option
+        value="high"
+      >
+        High
+      </option>
+      <option
+        value="medium"
+      >
+        Medium
+      </option>
+      <option
+        value="low"
+      >
+        Low
+      </option>
+    </select>
+    <button
+      style="padding: 6px 16px; background: rgb(17, 24, 39); color: white; border-radius: 4px; cursor: pointer;"
+      type="submit"
+    >
+      Add
+    </button>
+  </form>
+</div>
+`;
+
+exports[`TaskItem renders a completed task with strikethrough 1`] = `
+<div>
+  <div
+    style="display: flex; align-items: center; gap: 8px; padding: 8px 0px; border-bottom: 1px solid rgb(229, 231, 235);"
+  >
+    <input
+      aria-label="Mark "Buy milk" as incomplete"
+      checked=""
+      type="checkbox"
+    />
+    <span
+      style="flex: 1 1 0%; text-decoration: line-through; color: rgb(156, 163, 175);"
+    >
+      Buy milk
+    </span>
+    <span
+      style="font-size: 11px; font-weight: 700; color: rgb(245, 158, 11); text-transform: uppercase;"
+    >
+      medium
+    </span>
+    <button
+      aria-label="Delete "Buy milk""
+      style="background: none; cursor: pointer; color: rgb(107, 114, 128); font-size: 16px;"
+    >
+      ✕
+    </button>
+  </div>
+</div>
+`;
+
+exports[`TaskItem renders a high priority task 1`] = `
+<div>
+  <div
+    style="display: flex; align-items: center; gap: 8px; padding: 8px 0px; border-bottom: 1px solid rgb(229, 231, 235);"
+  >
+    <input
+      aria-label="Mark "Buy milk" as complete"
+      type="checkbox"
+    />
+    <span
+      style="flex: 1 1 0%; text-decoration: none; color: rgb(17, 24, 39);"
+    >
+      Buy milk
+    </span>
+    <span
+      style="font-size: 11px; font-weight: 700; color: rgb(239, 68, 68); text-transform: uppercase;"
+    >
+      high
+    </span>
+    <button
+      aria-label="Delete "Buy milk""
+      style="background: none; cursor: pointer; color: rgb(107, 114, 128); font-size: 16px;"
+    >
+      ✕
+    </button>
+  </div>
+</div>
+`;
+
+exports[`TaskItem renders an incomplete task 1`] = `
+<div>
+  <div
+    style="display: flex; align-items: center; gap: 8px; padding: 8px 0px; border-bottom: 1px solid rgb(229, 231, 235);"
+  >
+    <input
+      aria-label="Mark "Buy milk" as complete"
+      type="checkbox"
+    />
+    <span
+      style="flex: 1 1 0%; text-decoration: none; color: rgb(17, 24, 39);"
+    >
+      Buy milk
+    </span>
+    <span
+      style="font-size: 11px; font-weight: 700; color: rgb(245, 158, 11); text-transform: uppercase;"
+    >
+      medium
+    </span>
+    <button
+      aria-label="Delete "Buy milk""
+      style="background: none; cursor: pointer; color: rgb(107, 114, 128); font-size: 16px;"
+    >
+      ✕
+    </button>
+  </div>
+</div>
+`;
+
+exports[`TaskList renders empty state 1`] = `
+<div>
+  <p
+    style="color: rgb(156, 163, 175); text-align: center;"
+  >
+    No tasks yet. Add one above!
+  </p>
+</div>
+`;
+
+exports[`TaskList renders multiple tasks 1`] = `
+<div>
+  <div
+    aria-label="Tasks"
+    role="list"
+  >
+    <div
+      role="listitem"
+    >
+      <div
+        style="display: flex; align-items: center; gap: 8px; padding: 8px 0px; border-bottom: 1px solid rgb(229, 231, 235);"
+      >
+        <input
+          aria-label="Mark "Buy milk" as complete"
+          type="checkbox"
+        />
+        <span
+          style="flex: 1 1 0%; text-decoration: none; color: rgb(17, 24, 39);"
+        >
+          Buy milk
+        </span>
+        <span
+          style="font-size: 11px; font-weight: 700; color: rgb(239, 68, 68); text-transform: uppercase;"
+        >
+          high
+        </span>
+        <button
+          aria-label="Delete "Buy milk""
+          style="background: none; cursor: pointer; color: rgb(107, 114, 128); font-size: 16px;"
+        >
+          ✕
+        </button>
+      </div>
+    </div>
+    <div
+      role="listitem"
+    >
+      <div
+        style="display: flex; align-items: center; gap: 8px; padding: 8px 0px; border-bottom: 1px solid rgb(229, 231, 235);"
+      >
+        <input
+          aria-label="Mark "Walk dog" as incomplete"
+          checked=""
+          type="checkbox"
+        />
+        <span
+          style="flex: 1 1 0%; text-decoration: line-through; color: rgb(156, 163, 175);"
+        >
+          Walk dog
+        </span>
+        <span
+          style="font-size: 11px; font-weight: 700; color: rgb(34, 197, 94); text-transform: uppercase;"
+        >
+          low
+        </span>
+        <button
+          aria-label="Delete "Walk dog""
+          style="background: none; cursor: pointer; color: rgb(107, 114, 128); font-size: 16px;"
+        >
+          ✕
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
