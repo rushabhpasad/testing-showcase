@@ -13,8 +13,9 @@ describe('Security headers', () => {
 
   it('includes CORS headers in response', async () => {
     const res = await request(app).get('/tasks')
-    // CORS middleware adds Access-Control-Allow-Origin
-    expect(res.headers['access-control-allow-origin']).toBeDefined()
+    // cors() with default options sets wildcard origin — assert exact value
+    // to detect any future misconfiguration (e.g., accidentally restricting to a specific origin)
+    expect(res.headers['access-control-allow-origin']).toBe('*')
   })
 })
 
@@ -29,7 +30,7 @@ describe('Input validation', () => {
       .post('/tasks')
       .send({ title: "'; DROP TABLE tasks; --", priority: 'low' })
     // Should create the task (stored as plain text) or 400 — NOT 500
-    expect([200, 201, 400]).toContain(res.status)
+    expect([201, 400]).toContain(res.status)
   })
 
   it('handles XSS payload in title gracefully', async () => {
@@ -44,11 +45,11 @@ describe('Input validation', () => {
     }
   })
 
-  it('rejects a title exceeding reasonable length', async () => {
-    const longTitle = 'A'.repeat(10001)
+  it('rejects a title exceeding 200 characters', async () => {
+    const longTitle = 'A'.repeat(201)
     const res = await request(app).post('/tasks').send({ title: longTitle, priority: 'low' })
-    // Backend should reject oversized input or store it — but NOT crash
-    expect(res.status).not.toBe(500)
+    // Backend enforces 200-char limit — oversized input must be rejected
+    expect(res.status).toBe(400)
   })
 
   it('rejects an invalid priority value', async () => {
