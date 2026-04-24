@@ -92,3 +92,13 @@ pnpm --filter tests-e2e run install:browsers
 ```
 
 Browsers are cached globally (`~/Library/Caches/ms-playwright`) and shared between suites.
+
+## First-Time k6 Setup
+
+The performance suite requires the [k6](https://k6.io) binary, which is not bundled as an npm package. Install once:
+
+```bash
+brew install k6      # macOS
+```
+
+For other platforms see https://grafana.com/docs/k6/latest/set-up/install-k6/
