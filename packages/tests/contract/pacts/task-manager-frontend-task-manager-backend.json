@@ -1,0 +1,246 @@
+{
+  "consumer": {
+    "name": "task-manager-frontend"
+  },
+  "interactions": [
+    {
+      "description": "a request to create a task",
+      "request": {
+        "body": {
+          "priority": "medium",
+          "title": "Buy milk"
+        },
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "method": "POST",
+        "path": "/tasks"
+      },
+      "response": {
+        "body": {
+          "completed": false,
+          "createdAt": "2024-01-01T00:00:00.000Z",
+          "id": "abc-123",
+          "priority": "medium",
+          "title": "Buy milk"
+        },
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "matchingRules": {
+          "body": {
+            "$.completed": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.createdAt": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.id": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.priority": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.title": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          },
+          "header": {}
+        },
+        "status": 201
+      }
+    },
+    {
+      "description": "a request to get all tasks",
+      "request": {
+        "method": "GET",
+        "path": "/tasks"
+      },
+      "response": {
+        "body": [
+          {
+            "completed": false,
+            "createdAt": "2024-01-01T00:00:00.000Z",
+            "id": "abc-123",
+            "priority": "medium",
+            "title": "Buy milk"
+          }
+        ],
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "matchingRules": {
+          "body": {
+            "$": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "min": 1
+                }
+              ]
+            },
+            "$[*].completed": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$[*].createdAt": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$[*].id": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$[*].priority": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$[*].title": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          },
+          "header": {}
+        },
+        "status": 200
+      }
+    },
+    {
+      "description": "a request to update a task",
+      "providerStates": [
+        {
+          "name": "a task exists with id task-id-123"
+        }
+      ],
+      "request": {
+        "body": {
+          "completed": true
+        },
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "method": "PATCH",
+        "path": "/tasks/task-id-123"
+      },
+      "response": {
+        "body": {
+          "completed": true,
+          "createdAt": "2024-01-01T00:00:00.000Z",
+          "id": "task-id-123",
+          "priority": "medium",
+          "title": "Some task"
+        },
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "matchingRules": {
+          "body": {
+            "$.completed": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.createdAt": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.id": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.priority": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.title": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          },
+          "header": {}
+        },
+        "status": 200
+      }
+    }
+  ],
+  "metadata": {
+    "pact-js": {
+      "version": "11.0.2"
+    },
+    "pactRust": {
+      "ffi": "0.4.0",
+      "models": "1.0.4"
+    },
+    "pactSpecification": {
+      "version": "3.0.0"
+    }
+  },
+  "provider": {
+    "name": "task-manager-backend"
+  }
+}

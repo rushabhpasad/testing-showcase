@@ -39,3 +39,7 @@ export const remove = (id: string): boolean => {
 export const reset = (): void => {
   tasks = []
 }
+
+export const seed = (task: Task): void => {
+  tasks.push(task)
+}
