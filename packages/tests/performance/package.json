@@ -1,0 +1,10 @@
+{
+  "name": "tests-performance",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "k6 run src/smoke.js",
+    "test:load": "k6 run src/load.js",
+    "test:spike": "k6 run src/spike.js",
+    "test:failures": "k6 run --env SHOW_FAILURES=true src/smoke.js"
+  }
+}
