@@ -1,0 +1,14 @@
+{
+  "name": "tests-e2e",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "playwright test",
+    "test:failures": "SHOW_FAILURES=true playwright test",
+    "test:ui": "playwright test --ui",
+    "install:browsers": "playwright install chromium"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.40.1",
+    "typescript": "^5.3.3"
+  }
+}
