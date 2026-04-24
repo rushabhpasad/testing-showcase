@@ -35,12 +35,13 @@ suitesRouter.get('/:id/run', (req, res) => {
   const monoRoot = path.resolve(__dirname, '../../../..')
   const cwd = path.join(monoRoot, suite.cwd)
 
-  // Split command into program + args; avoid shell:true to prevent injection surface
-  const [program, ...args] = suite.command.split(' ')
-
-  const child = spawn(program, args, {
+  // Use shell:true so the OS resolves `pnpm` via the shell's PATH, matching what
+  // the terminal does. Commands come from a static config file — no user input —
+  // so there is no injection risk here.
+  const child = spawn(suite.command, {
     cwd,
     env: { ...process.env, FORCE_COLOR: '0' },
+    shell: true,
   })
 
   const send = (event: string, data: unknown) => {
