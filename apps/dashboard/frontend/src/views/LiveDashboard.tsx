@@ -12,13 +12,18 @@ interface SuiteCard {
 
 export function LiveDashboard() {
   const [cards, setCards] = useState<SuiteCard[]>([])
+  const [error, setError] = useState<string | null>(null)
+  const [loading, setLoading] = useState(true)
   const [expanded, setExpanded] = useState<string | null>(null)
   const cleanupRef = useRef<Map<string, () => void>>(new Map())
 
   useEffect(() => {
-    getSuites().then(suites => {
-      setCards(suites.map(s => ({ suite: s, state: 'idle', output: [] })))
-    })
+    getSuites()
+      .then(suites => {
+        setCards(suites.map(s => ({ suite: s, state: 'idle', output: [] })))
+      })
+      .catch(() => setError('Could not connect to dashboard backend (port 3002). Is it running?'))
+      .finally(() => setLoading(false))
     return () => {
       cleanupRef.current.forEach(fn => fn())
     }
@@ -47,6 +52,9 @@ export function LiveDashboard() {
     )
     cleanupRef.current.set(id, stop)
   }
+
+  if (loading) return <div style={{ color: '#6b7280' }}>Loading suites…</div>
+  if (error) return <div style={{ color: '#ef4444', padding: 16, background: '#fef2f2', borderRadius: 6 }}>{error}</div>
 
   return (
     <div>

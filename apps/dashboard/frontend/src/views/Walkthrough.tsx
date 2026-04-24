@@ -104,15 +104,19 @@ export function Walkthrough() {
       <h2 style={{ marginTop: 0 }}>Guided Walkthrough</h2>
       <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 24 }}>
         {STEPS.map((_, i) => (
-          <div
+          <button
             key={i}
             onClick={() => setStep(i)}
+            aria-label={`Go to step ${i + 1}`}
+            aria-current={i === step ? 'step' : undefined}
             style={{
               width: 10,
               height: 10,
               borderRadius: '50%',
               background: i === step ? '#111827' : '#d1d5db',
               cursor: 'pointer',
+              border: 'none',
+              padding: 0,
             }}
           />
         ))}
