@@ -9,7 +9,7 @@ interface Props {
 
 export function TaskList({ tasks, onToggle, onDelete }: Props) {
   if (tasks.length === 0) {
-    return <p style={{ color: '#9ca3af', textAlign: 'center' }}>No tasks yet. Add one above!</p>
+    return <p style={{ color: '#6b7280', textAlign: 'center' }}>No tasks yet. Add one above!</p>
   }
   return (
     <div role="list" aria-label="Tasks">

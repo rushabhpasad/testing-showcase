@@ -108,12 +108,12 @@ exports[`TaskItem renders a completed task with strikethrough 1`] = `
       type="checkbox"
     />
     <span
-      style="flex: 1 1 0%; text-decoration: line-through; color: rgb(156, 163, 175);"
+      style="flex: 1 1 0%; text-decoration: line-through; color: rgb(107, 114, 128);"
     >
       Buy milk
     </span>
     <span
-      style="font-size: 11px; font-weight: 700; color: rgb(245, 158, 11); text-transform: uppercase;"
+      style="font-size: 11px; font-weight: 700; color: rgb(146, 64, 14); text-transform: uppercase;"
     >
       medium
     </span>
@@ -142,7 +142,7 @@ exports[`TaskItem renders a high priority task 1`] = `
       Buy milk
     </span>
     <span
-      style="font-size: 11px; font-weight: 700; color: rgb(239, 68, 68); text-transform: uppercase;"
+      style="font-size: 11px; font-weight: 700; color: rgb(185, 28, 28); text-transform: uppercase;"
     >
       high
     </span>
@@ -171,7 +171,7 @@ exports[`TaskItem renders an incomplete task 1`] = `
       Buy milk
     </span>
     <span
-      style="font-size: 11px; font-weight: 700; color: rgb(245, 158, 11); text-transform: uppercase;"
+      style="font-size: 11px; font-weight: 700; color: rgb(146, 64, 14); text-transform: uppercase;"
     >
       medium
     </span>
@@ -188,7 +188,7 @@ exports[`TaskItem renders an incomplete task 1`] = `
 exports[`TaskList renders empty state 1`] = `
 <div>
   <p
-    style="color: rgb(156, 163, 175); text-align: center;"
+    style="color: rgb(107, 114, 128); text-align: center;"
   >
     No tasks yet. Add one above!
   </p>
@@ -217,7 +217,7 @@ exports[`TaskList renders multiple tasks 1`] = `
           Buy milk
         </span>
         <span
-          style="font-size: 11px; font-weight: 700; color: rgb(239, 68, 68); text-transform: uppercase;"
+          style="font-size: 11px; font-weight: 700; color: rgb(185, 28, 28); text-transform: uppercase;"
         >
           high
         </span>
@@ -241,12 +241,12 @@ exports[`TaskList renders multiple tasks 1`] = `
           type="checkbox"
         />
         <span
-          style="flex: 1 1 0%; text-decoration: line-through; color: rgb(156, 163, 175);"
+          style="flex: 1 1 0%; text-decoration: line-through; color: rgb(107, 114, 128);"
         >
           Walk dog
         </span>
         <span
-          style="font-size: 11px; font-weight: 700; color: rgb(34, 197, 94); text-transform: uppercase;"
+          style="font-size: 11px; font-weight: 700; color: rgb(21, 128, 61); text-transform: uppercase;"
         >
           low
         </span>

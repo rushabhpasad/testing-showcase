@@ -6,10 +6,11 @@ interface Props {
   onDelete: (id: string) => void
 }
 
+// Dark shades chosen for WCAG 2.1 AA contrast (≥4.5:1) on white at 11px bold.
 const PRIORITY_COLORS: Record<Priority, string> = {
-  high: '#ef4444',
-  medium: '#f59e0b',
-  low: '#22c55e',
+  high: '#b91c1c',
+  medium: '#92400e',
+  low: '#15803d',
 }
 
 export function TaskItem({ task, onToggle, onDelete }: Props) {
@@ -33,7 +34,7 @@ export function TaskItem({ task, onToggle, onDelete }: Props) {
         style={{
           flex: 1,
           textDecoration: task.completed ? 'line-through' : 'none',
-          color: task.completed ? '#9ca3af' : '#111827',
+          color: task.completed ? '#6b7280' : '#111827',
         }}
       >
         {task.title}

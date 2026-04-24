@@ -21,7 +21,8 @@ export const runSuite = (
     source.close()
   })
   source.onerror = () => {
-    onOutput('[connection error]')
+    onOutput('[connection lost]')
+    onDone(1)
     source.close()
   }
   return () => source.close()
